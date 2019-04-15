@@ -1,4 +1,4 @@
-class ReviewsController < ApplicationController
+class ReviewsController < ProtectedController
   before_action :set_review, only: [:show, :update, :destroy]
 
   # GET /reviews
@@ -46,6 +46,6 @@ class ReviewsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def review_params
-      params.require(:review).permit(:beer, :brewery, :rating, :location, :type, :flavor)
+      params.require(:review).permit(:beer, :brewery, :rating, :location, :beer_type, :flavor)
     end
 end

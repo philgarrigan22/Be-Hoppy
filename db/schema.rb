@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2019_04_15_144938) do
     t.string "brewery", null: false
     t.integer "rating", null: false
     t.string "location"
-    t.string "type"
+    t.string "beer_type"
     t.string "flavor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

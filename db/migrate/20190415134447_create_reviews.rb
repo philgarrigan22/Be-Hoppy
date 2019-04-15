@@ -5,7 +5,7 @@ class CreateReviews < ActiveRecord::Migration[5.2]
       t.string :brewery, null: false
       t.integer :rating, null: false
       t.string :location
-      t.string :type
+      t.string :beer_type
       t.string :flavor
 
       t.timestamps
