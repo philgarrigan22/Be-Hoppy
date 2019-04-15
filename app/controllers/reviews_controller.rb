@@ -1,7 +1,7 @@
 class ReviewsController < ProtectedController
   before_action :set_review, only: [:show, :update, :destroy]
 
-  # GET /reviews
+  # GET /INDEX all reviews
   def index
     @reviews = current_user.reviews.all
 
