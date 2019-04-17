@@ -1,6 +1,22 @@
 class ReviewsController < ProtectedController
   before_action :set_review, only: [:show, :update, :destroy]
 
+  require 'httparty'
+
+  # YELP POST search for Brewery by location
+  def find_breweries
+    search_location = params.require(:search)
+    headers = { 'Authorization' => "Bearer #{ENV['YELP_KEY']}" }
+    @res = HTTParty.get(
+      'https://api.yelp.com/v3/businesses/search',
+      headers: headers,
+      query: { term: 'Breweries', location: search_location }
+    )
+
+    render json: @res
+  end
+
+
   # GET /reviews
   def index
     @reviews = current_user.reviews.all
