@@ -1,21 +1,18 @@
-class ReviewsController < ProtectedController
-  before_action :set_review, only: [:show, :update, :destroy]
+require 'httparty'
 
-  require 'httparty'
+class ReviewsController < ProtectedController
+  before_action :set_review, only: %i[show update destroy]
+
+  # def search_beer
+  #   search_beer = params.require(:search)
+  #   render json: HTTParty.get("https://data.opendatasoft.com//api/records/1.0/search/?dataset=open-beer-database%40public-us&q=#{search_beer}&facet=style_name&facet=cat_name&facet=name_breweries&facet=country", :headers => { "Authorization" => "Bearer #{ENV["BEER_KEY"]}"})
+  # end
 
   # YELP POST search for Brewery by location
-  def find_breweries
-    search_location = params.require(:search)
-    headers = { 'Authorization' => "Bearer #{ENV['YELP_KEY']}" }
-    @res = HTTParty.get(
-      'https://api.yelp.com/v3/businesses/search',
-      headers: headers,
-      query: { term: 'Breweries', location: search_location }
-    )
-
-    render json: @res
+  def yelp_search
+    location = params.require(:search)
+    render json: HTTParty.get("https://api.yelp.com/v3/businesses/search?limit=50&term=Breweries&location=#{location}", :headers => { "Authorization" => "Bearer #{ENV["YELP_KEY"]}"})
   end
-
 
   # GET /reviews
   def index
