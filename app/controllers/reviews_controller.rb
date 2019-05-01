@@ -17,7 +17,7 @@ class ReviewsController < ProtectedController
 
   # GET /INDEX all reviews
   def index
-    @reviews = current_user.reviews.all
+    @reviews = current_user.reviews.all.order('id DESC')
 
     render json: @reviews
   end
