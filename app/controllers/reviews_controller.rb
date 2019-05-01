@@ -2,6 +2,7 @@ require 'httparty'
 
 class ReviewsController < ProtectedController
   before_action :set_review, only: %i[show update destroy]
+  skip_before_action :authenticate, only: %i[search_beer yelp_search]
 
   def search_beer
     search_beer = params.require(:search)
